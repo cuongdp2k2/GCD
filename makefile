@@ -67,3 +67,9 @@ clean:
 	@rm -rf obj_dir
 	@rm -f *.fst
 	@echo "-----------------> ALL CLEAN <--------------------"
+
+.PHONY: run
+run:
+	@make sim 
+	@make wave
+	@echo "----------------->  RUNNING  <--------------------"

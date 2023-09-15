@@ -12,9 +12,11 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vtop__Syms(contextp(), _vcname__, this)}
     , clk_i{vlSymsp->TOP.clk_i}
-    , data1_i{vlSymsp->TOP.data1_i}
-    , data2_i{vlSymsp->TOP.data2_i}
-    , result_o{vlSymsp->TOP.result_o}
+    , A_in{vlSymsp->TOP.A_in}
+    , B_in{vlSymsp->TOP.B_in}
+    , go_in{vlSymsp->TOP.go_in}
+    , Done_out{vlSymsp->TOP.Done_out}
+    , Output_out{vlSymsp->TOP.Output_out}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context
