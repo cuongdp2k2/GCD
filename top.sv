@@ -1,5 +1,16 @@
 module top (
+//--------------- Design1 --------------------------------
     // input
+    // input logic [7:0] data1_i , 
+    // input logic [7:0] data2_i , 
+    // input logic        clk_i , Go_i,
+
+    // // output
+    // output logic       done_o ,
+    // output logic [7:0] result_o
+
+//--------------- Design2 ----------------------------
+    // // input
         input logic [7:0]          A_in         ,
         input logic [7:0]          B_in         ,
         input logic                clk_i        ,
@@ -15,9 +26,11 @@ module top (
     //     // input
     //     .A_i(data1_i)       ,
     //     .B_i(data2_i)       ,
-    //     .clk_i(clk_i)        ,
+    //     .Go_i(Go_i)         ,
+    //     .clk_i(clk_i)       ,
 
     //     // output
+    //     .done_o(done_o)     ,
     //     .result_o(result_o)  
     // );
 
@@ -35,15 +48,6 @@ module top (
 endmodule : top 
 
 /*      
-
-//-- For Design1 --------------------------------
-    // input
-    input logic [7:0] data1_i , 
-    input logic [7:0] data2_i , 
-    input logic        clk_i , //sel_i,
-
-    // output
-    output logic [7:0] result_o
 
 
 //-- For Design 2---------------------------------

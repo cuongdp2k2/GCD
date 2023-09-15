@@ -1,10 +1,12 @@
 module ex02 #(parameter BusSize = 8 ) (
     // input
         input logic                clk_i    ,
+        input logic                Go_i     ,
         input logic  [BusSize-1:0] A_i      ,
         input logic  [BusSize-1:0] B_i      ,
 
     // output
+        output logic               done_o   ,
         output logic [BusSize-1:0] result_o 
 ) ;
 
@@ -14,6 +16,7 @@ module ex02 #(parameter BusSize = 8 ) (
     reg [BusSize-1:0] B_data_reg ;
     reg [1:0]         A_op_reg   ;
     reg [1:0]         B_op_reg   ;
+    reg [BusSize-1:0] result_reg ;
 
     // logic A
     logic [BusSize-1:0] A_data    ;
@@ -27,14 +30,21 @@ module ex02 #(parameter BusSize = 8 ) (
     logic [1:0] A_op ;
     logic [1:0] B_op ;
 
-    assign result_o = ( done == 0 ) ? 0 : (B_data_reg == 0 || A_data_reg == 0) ? 0 : (B_data_reg == 1) ? B_data_reg : A_data ;
+    //assign result_reg <= ( done == 0 ) ? 0 : A_data ;
+    assign result_o    =  result_reg ; 
+    assign done_o      =  done       ;
+    
+    always_latch begin
+        if(done)
+            result_reg = A_data ;
+    end
 
-    always @(posedge clk_i ) begin
-        A_data_reg <= A_data ;
-        B_data_reg <= B_data ;
-        A_op_reg   <= A_op   ;
-        B_op_reg   <= B_op   ;
-        AsubB      <= A_data - B_data ;
+    always @(posedge clk_i ) begin            
+            A_data_reg <= A_data ;
+            B_data_reg <= B_data ;
+            A_op_reg   <= A_op   ;
+            B_op_reg   <= B_op   ;
+            AsubB      <= A_data - B_data ;
     end
 
     always_comb begin :  A_selector
@@ -72,6 +82,7 @@ module ex02 #(parameter BusSize = 8 ) (
         // input
             .A_i    (A_data) ,
             .B_i    (B_data) ,
+            .Go_i   (Go_i)   ,
 
         // output
             .done_o (done)   ,

@@ -2,6 +2,7 @@ module control_unit #( parameter BusSize = 8 ) (
     // input
         input logic [BusSize-1:0] A_i       , 
                                   B_i       ,
+        input logic               Go_i      ,
 
     // output
         output logic              done_o ,
@@ -20,25 +21,27 @@ module control_unit #( parameter BusSize = 8 ) (
     // 10   : B = B 
 
 
-    always_latch begin
-        if( A_i > B_i ) begin
+    always_comb begin
+        if(Go_i) begin
             
-            done_o = 1'b0  ;
-            A_op_o = 2'b00 ;
-            B_op_o = 2'b10 ;
+            // default A > B
+            done_o = 1'b0  ; 
+            A_op_o = 2'b00 ; //A = A - B
+            B_op_o = 2'b10 ; // B = B
 
-        end else if( B_i > A_i ) begin
-            
-            done_o = 1'b0  ;
-            A_op_o = 2'b10 ;
-            B_op_o = 2'b01 ;
-
-        end else if( A_i == B_i || B_i == 0 || B_i == 1 ) begin  // Done -> A_i = B_i 
-
-            done_o = 1'b1  ;
-            A_op_o = 2'b01 ;
-            B_op_o = 2'b00 ;
-
+            if(A_i < B_i) begin
+                done_o = 1'b0  ;
+                A_op_o = 2'b10 ; // A = B
+                B_op_o = 2'b01 ; // B = A
+            end else if(A_i == B_i) begin
+                done_o = 1'b1  ;
+                A_op_o = 2'b01 ; // new A input
+                B_op_o = 2'b00 ; // new B input
+            end
+        end else begin
+            done_o = 1'bx  ;
+            A_op_o = 2'b11 ; // A = A 
+            B_op_o = 2'b10 ; // B = B
         end
     end
 
