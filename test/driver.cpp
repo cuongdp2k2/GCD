@@ -51,8 +51,8 @@ void check_result(Vtop *dut ){
 	if(dut->Done_out){
 		result_count ++ ;
 		if(dut->Output_out == GCD(dut->A_in, dut->B_in)) 
-			printf("Test %d : %d %d :  \033[0;32mPASSS\033[0m\n ",result_count,dut->A_in,dut->B_in) ;
+			printf("Test %d : %d %d -> %d:  \033[0;32mPASSS\033[0m\n ",result_count,dut->A_in,dut->B_in,dut->Output_out) ;
 		else
-			printf("Test %d : %d %d :  \033[0;31mFAILL\033[0m\n ",result_count,dut->A_in,dut->B_in)  ;
+			printf("Test %d : %d %d -> %d:  \033[0;31mFAILL\033[0m\n ",result_count,dut->A_in,dut->B_in,dut->Output_out)  ;
 	}
 }
